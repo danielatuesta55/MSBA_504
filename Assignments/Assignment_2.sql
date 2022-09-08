@@ -1,0 +1,89 @@
+/* Question 1
+
+1 a*/
+DROP TABLE IF EXISTS Pet_Owner;
+CREATE TABLE Pet_Owner (
+    PetId INT NOT NULL UNIQUE,
+    PetName VARCHAR(255) NOT NULL,
+    CustomerFirstName VARCHAR(255) NOT NULL,
+    CustomerLastName VARCHAR(255) NOT NULL,
+    OwnerID INT NOT NULL UNIQUE,
+    GamesAttenance INT NOT NULL,
+    PRIMARY KEY (PetId),
+    FOREIGN KEY (OwnerID) REFERENCES customerid(OwnerID)
+);
+/* As far as the reference for question 1 a it states that is referencing another "data base" called " customer id" This is why I used the same syntax in reference but I did omit the space in bewteen so it would not run an error. In addition I dont think it meant to say data base but table thats why I am keeping the code like it is.
+/*1b*/
+DROP TABLE IF EXISTS Volunteer_tbl;
+CREATE TABLE Volunteer_tbl (
+    VolunteerID INT NOT NULL UNIQUE,
+    VolunteerFristName VARCHAR(255) NOT NULL,
+    VolunteerPhoneNumber INT NULL,
+    VolunteerEmail VARCHAR(255) NULL,
+    VolunteerStartDate DATETIME NOT NULL,
+    VolunteerStreertAddress VARCHAR(255) NULL,
+    VolunteerZipCode VARCHAR(255) NULL,
+    VolunteerState VARCHAR(3) NOT NULL,
+    VolunteerCity VARCHAR(255) NOT Null,
+    VolunteerSecondaryPhone int NOT NULL
+);
+/* 1C - For this question I decided to make a real life scenario and use ALTER TABLE to add the additional columns*/
+/* To solve this question I used the following instructions for SQL https://docs.microsoft.com/en-us/sql/relational-databases/tables/add-columns-to-a-table-database-engine?view=sql-server-ver16*/
+ALTER TABLE Volunteer_tbl
+ADD VolunteerLastName VARCHAR(255) NOT NULL, VolunteerEmergencyContact VARCHAR(255) NOT NULL, VolunteerProgram VARCHAR(80) NOT NULL;
+/* In case the code above produces an error you can use the following lines of commands to gurantee that the columns are added to the table*/
+ALTER TABLE Volunteer_tbl
+ADD VolunteerLastName VARCHAR(255) NOT NULL;
+ALTER TABLE Volunteer_tbl
+ADD VolunteerEmergencyContact VARCHAR(255) NOT NULL;
+ALTER TABLE Volunteer_tbl
+ADD VolunteerProgram VARCHAR(80) NOT NULL;
+
+/* Question 2
+
+2A)*/
+SELECT * FROM Employees
+ORDER BY Salary DESC; -- This will arrange the data in ascending order 
+
+-- If you want to rank you can use the RANK() funtion like this
+SELECT
+  RANK() OVER(ORDER BY Salary DESC) AS ranking,
+  EmployeeID,
+  LastName,
+  FirstName,
+  HireDate,
+  Title,
+  Salary
+FROM Employees;
+
+/*2B)*/
+-- Create the SELECT statment and provide the values you want back in this case EmployeeID, Last Name, Salary and the Title FROM Employees
+SELECT EmployeeID, LastName, Salary, Title
+FROM Employees;
+
+/*2C*/
+--Start with SELECT clause and enter the columns you need. After that use the WHERE clause and set the dates so only those employees are returned.
+SELECT EmployeeId, LastName, HireDate, Title
+FROM Employees 
+WHERE HireDate >= '2021/01/01' AND 
+      HireDate <= '2022/04/01'; -- I went to 04-01 since its not inclusive and we need those employees enrolled on the 31st
+-- Since I cant run the code on my end I provided an additional code that could solve this question
+SELECT EmployeeId, LastName, HireDate, Title AS Q12021Hires FROM Employees WHERE HireDate BETWEEN '2021/01/01 00:00' AND '2022/04/01 23:59';
+
+/* 2D*/
+-- Start with the SELECT statement and then use the WHERE LIKE Clause to capture only employees whos last name starts with p
+SELECT * FROM Employees
+WHERE LastName LIKE 'P%';
+
+/*2e*/
+SELECT COUNT(Salary) FROM Employees;
+-- VS SUM
+SELECT SUM(Salary) FROM Employees;
+
+-- There is a big difference one will return the count meaning the amount of data points in the column and the other one will add all of the values in the column.
+-- If you use count you get an anwser of 27 vs 162950.0000 if you use sum you get a value of 
+
+-- Code written by Jorge Daniel Atuesta
+
+
+
