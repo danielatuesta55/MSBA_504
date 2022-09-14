@@ -112,3 +112,24 @@ WHERE customer_id IN (
 -- 1. Inser into
 -- 2. Join
 -- 3. Datatypes 
+
+
+-- UPDATE COMMAND
+/* permenatly change Salary from monthlu to annual */
+Update employees
+SET Salary = Salary * 12;
+
+update employees
+SET ContactName = "Lonzo Ball", city = "Chicago"
+WHERE JerseyId = 2 ;
+
+-- INSERT INTO Command
+-- insert into adds a row of data while update set replaces existing data
+
+-- ADD new product to database
+INSERT INTO PRODUCTDB (UPC, SKU, Description, Brand)
+VALUES (0003,23123,Wet, Swiffewr);
+
+
+
+
