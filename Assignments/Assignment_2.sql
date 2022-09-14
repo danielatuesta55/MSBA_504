@@ -12,9 +12,12 @@ CREATE TABLE Pet_Owner (
     PRIMARY KEY (PetId),
     FOREIGN KEY (OwnerID) REFERENCES customerid(OwnerID)
 );
-/* As far as the reference for question 1 a it states that is referencing another "data base" called " customer id" This is why I used the same syntax in reference but I did omit the space in bewteen so it would not run an error. In addition I dont think it meant to say data base but table thats why I am keeping the code like it is.
+/* As far as the reference for question 1 a it states that it is referencing another "data base" called " customer id" This is why I used the same syntax in reference but, I did omit the space in between so it would not run an error. In addition, I don't think it meant to say database but table thats why I am keeping the code like it is.
 /*1b*/
+-- Created this DROP statement in case there is a table already created under this name
 DROP TABLE IF EXISTS Volunteer_tbl;
+
+-- Created the tables with CREATE TABLE
 CREATE TABLE Volunteer_tbl (
     VolunteerID INT NOT NULL UNIQUE,
     VolunteerFristName VARCHAR(255) NOT NULL,
@@ -27,11 +30,15 @@ CREATE TABLE Volunteer_tbl (
     VolunteerCity VARCHAR(255) NOT Null,
     VolunteerSecondaryPhone int NOT NULL
 );
-/* 1C - For this question I decided to make a real life scenario and use ALTER TABLE to add the additional columns*/
+
+/* 1C - For this question, I decided to make a real-life scenario and use ALTER TABLE to add the additional columns*/
+
 /* To solve this question I used the following instructions for SQL https://docs.microsoft.com/en-us/sql/relational-databases/tables/add-columns-to-a-table-database-engine?view=sql-server-ver16*/
+--Alter table to include new columns and then ADD to add them
 ALTER TABLE Volunteer_tbl
 ADD VolunteerLastName VARCHAR(255) NOT NULL, VolunteerEmergencyContact VARCHAR(255) NOT NULL, VolunteerProgram VARCHAR(80) NOT NULL;
-/* In case the code above produces an error you can use the following lines of commands to gurantee that the columns are added to the table*/
+
+/* In case the code above produces an error, you can use the following lines of commands to guarantee that the columns are added to the table*/
 ALTER TABLE Volunteer_tbl
 ADD VolunteerLastName VARCHAR(255) NOT NULL;
 ALTER TABLE Volunteer_tbl
@@ -45,7 +52,7 @@ ADD VolunteerProgram VARCHAR(80) NOT NULL;
 SELECT * FROM Employees
 ORDER BY Salary DESC; -- This will arrange the data in ascending order 
 
--- If you want to rank you can use the RANK() funtion like this
+-- If you want to rank you can use the RANK() function like this
 SELECT
   RANK() OVER(ORDER BY Salary DESC) AS ranking,
   EmployeeID,
@@ -64,15 +71,19 @@ FROM Employees;
 /*2C*/
 --Start with SELECT clause and enter the columns you need. After that use the WHERE clause and set the dates so only those employees are returned.
 SELECT EmployeeId, LastName, HireDate, Title
-FROM Employees 
+FROM Employees
+-- State the WHERE clause to get the range for the dates 
 WHERE HireDate >= '2021/01/01' AND 
       HireDate <= '2022/04/01'; -- I went to 04-01 since its not inclusive and we need those employees enrolled on the 31st
+
 -- Since I cant run the code on my end I provided an additional code that could solve this question
+-- Here I use the BEWTEEN fuction to state the dates add the hour so I am sure to be inclusive of the dates. 
 SELECT EmployeeId, LastName, HireDate, Title AS Q12021Hires FROM Employees WHERE HireDate BETWEEN '2021/01/01 00:00' AND '2022/04/01 23:59';
 
 /* 2D*/
--- Start with the SELECT statement and then use the WHERE LIKE Clause to capture only employees whos last name starts with p
+-- Start with the SELECT statement and then use the WHERE LIKE Clause to capture only employees whose last name starts with p
 SELECT * FROM Employees
+-- Use the 'P%' wildcard to make sure that we look at all lastnames that start with P
 WHERE LastName LIKE 'P%';
 
 /*2e*/
@@ -81,9 +92,9 @@ SELECT COUNT(Salary) FROM Employees;
 SELECT SUM(Salary) FROM Employees;
 
 -- There is a big difference one will return the count meaning the amount of data points in the column and the other one will add all of the values in the column.
--- If you use count you get an anwser of 27 vs 162950.0000 if you use sum you get a value of 
+-- If you use count you get an answer of 27 vs 162950.0000 if you use sum you get a value of 
 
--- Code written by Jorge Daniel Atuesta
+-- Code was written by Jorge Daniel Atuesta
 
 
 
