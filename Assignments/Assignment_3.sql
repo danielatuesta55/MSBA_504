@@ -2,6 +2,34 @@
 -- September 14th 2022
 
 -- Question 1 SQL Fundamentals - CREATE TABLE
+-- Create tables and relate them with one another
+
+CREATE TABLE Customers(
+    CustID INT NOT NULL PRIMARY KEY,
+    FirstName VARCHAR(12) NOT NULL,
+    LastName VARCHAR(14) NOT NULL,
+    RepairID INT NOT NULL
+);
+
+
+CREATE TABLE Repair(
+    CustID INT NOT NULL FOREIGN KEY REFERENCES Customers(CustID),
+    VIN VARCHAR(10) PRIMARY KEY,
+    Make VARCHAR(15),
+    Model VARCHAR(20),
+    YearMade SMALLINT,
+    StartDate date,
+    FinishDate date
+);
+
+-- Insert two data points into table Customers
+INSERT INTO Customers
+VALUES (001, 'Jorge', 'Atuesta',1),(002, 'Sofia','Countihno',2);
+
+-- Insert two data points into table Repair
+INSERT INTO Repair
+VALUES (001,'2f3z123','Mac','MacBook Air',2022,'2022-09-13','2022-09-14'),(002,'2Z45673','Samsung','Yoga',2022,'2022-08-14','2022-09-20');
+
 
 
 -- Question 2 SQL Fundamentals - SELECT ... FROM
@@ -82,7 +110,7 @@ FROM sales.staffs;
 -- STEP 1: ONLY EXECUTE THIS CODE IF YOU ALREADY HAVE A VIEW NAMED SupplyInStockPerStore!!!!
 -- Create a drop statement in case the view was already created in the past 
 GO -- Using this to let SQL know what to run first start and end point
-DROP VIEW SupplyInStockPerStore;
+DROP VIEW IF EXISTS SupplyInStockPerStore;
 GO -- Using this to let SQL know what to run first start and end point
 -- STEP 2
 -- We created a view to have easy access to the information for furthur analysis
