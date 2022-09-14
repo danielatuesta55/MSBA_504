@@ -4,33 +4,36 @@
 -- Question 1 SQL Fundamentals - CREATE TABLE
 -- Create tables and relate them with one another
 
-CREATE TABLE Customers(
+CREATE TABLE CUSTOMER(
     CustID INT NOT NULL PRIMARY KEY,
     FirstName VARCHAR(12) NOT NULL,
     LastName VARCHAR(14) NOT NULL,
-    RepairID INT NOT NULL
 );
 
-
-CREATE TABLE Repair(
-    CustID INT NOT NULL FOREIGN KEY REFERENCES Customers(CustID),
-    VIN VARCHAR(10) PRIMARY KEY,
+CREATE TABLE VEHICLE (
+    VIN VARCHAR(10) NOT NULL PRIMARY KEY,
     Make VARCHAR(15),
     Model VARCHAR(20),
-    YearMade SMALLINT,
-    StartDate date,
-    FinishDate date
+    YearMake INT,
+    CustID INT NOT NULL FOREIGN KEY REFERENCES CUSTOMER(CustID)
 );
 
--- Insert two data points into table Customers
-INSERT INTO Customers
-VALUES (001, 'Jorge', 'Atuesta',1),(002, 'Sofia','Countihno',2);
+CREATE TABLE REPAIR(
+    RepairID INT NOT NULL PRIMARY KEY,
+    StartDate Date,
+    FinishDate Date,
+    CustID INT NOT NULL FOREIGN KEY REFERENCES CUSTOMER(CustID),
+    VIN VARCHAR(10) NOT NULL FOREIGN KEY REFERENCES VEHICLE(VIN)
+);
 
--- Insert two data points into table Repair
-INSERT INTO Repair
-VALUES (001,'2f3z123','Mac','MacBook Air',2022,'2022-09-13','2022-09-14'),(002,'2Z45673','Samsung','Yoga',2022,'2022-08-14','2022-09-20');
+INSERT INTO CUSTOMER
+VALUES(001,'Jorge','Atuesta'),(002,'Sofia','Coutinho');
 
+INSERT INTO VEHICLE
+VALUES ('2f3z132390','Toyota','Tacoma',2022,001),('223Z456718','Ferrari','La Ferrari',2022,002);
 
+INSERT INTO REPAIR
+VALUES(01,'20220913','20220914',001,'2f3z132390'),(02,'20220809','20220921',002,'223Z456718');
 
 -- Question 2 SQL Fundamentals - SELECT ... FROM
 -- 2.1 BikeStores: List customer_id, first_name, email in customer table
